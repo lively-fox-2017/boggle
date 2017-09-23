@@ -8,8 +8,8 @@ class Boogle {
                   ['K', 'L', 'P', 'S'],
                   ['Y', 'E', 'U', 'T'],
                   ['E', 'O', 'R', 'N']];
-    this.words = ['APPLE', 'SIT', 'TRIP', 'TURN', 'SUPER', 'NUN', 'EROR']
-    //this.words = data;
+    //this.words = ['APPLE', 'SIT', 'TRIP', 'TURN', 'SUPER', 'NUN', 'EROR']
+    this.words = data;
     this.result = [];
   }
 
@@ -60,7 +60,7 @@ class Boogle {
   }
 
   isVisitedCheck(stackVisited, nextBaris, nextKolom){
-    console.log(stackVisited);
+    //console.log(stackVisited);
     for(let pos of stackVisited){
       //console.log(`pos = ${pos}`);
       if(pos[0]==nextBaris &&
@@ -222,7 +222,7 @@ class Boogle {
     if(!this.isNextWall(nextAtasKananBaris, nextAtasKananKolom) &&
     this.nextHurufCheckRight(kata, indexYangAkanDicek, nextAtasKananBaris, nextAtasKananKolom) &&
     !checked&&
-    !this.isVisitedCheck(stackVisited, indexBaris, indexKolom)
+    !this.isVisitedCheck(stackVisited, nextAtasKananBaris, nextAtasKananKolom)
     ){
       //console.log('belok kanan  bos');
       //console.log(indexYangAkanDicek);
@@ -241,7 +241,7 @@ class Boogle {
     if(!this.isNextWall(nextBawahKananBaris, nextBawahKananKolom) &&
     this.nextHurufCheckRight(kata, indexYangAkanDicek, nextBawahKananBaris, nextBawahKananKolom) &&
     !checked&&
-    !this.isVisitedCheck(stackVisited, indexBaris, indexKolom)
+    !this.isVisitedCheck(stackVisited, nextBawahKananBaris, nextBawahKananKolom)
     ){
       //console.log('belok kanan  bos');
       //console.log(indexYangAkanDicek);
@@ -260,7 +260,7 @@ class Boogle {
     if(!this.isNextWall(nextAtasKiriBaris, nextAtasKiriKolom) &&
     this.nextHurufCheckRight(kata, indexYangAkanDicek, nextAtasKiriBaris, nextAtasKiriKolom) &&
     !checked&&
-    !this.isVisitedCheck(stackVisited, indexBaris, indexKolom)
+    !this.isVisitedCheck(stackVisited, nextAtasKiriBaris, nextAtasKiriKolom)
     ){
       //console.log('belok kanan  bos');
       //console.log(indexYangAkanDicek);
@@ -279,7 +279,7 @@ class Boogle {
     if(!this.isNextWall(nextBawahKiriBaris, nextBawahKiriKolom) &&
     this.nextHurufCheckRight(kata, indexYangAkanDicek, nextBawahKiriBaris, nextBawahKiriKolom) &&
     !checked&&
-    !this.isVisitedCheck(stackVisited, indexBaris, indexKolom)
+    !this.isVisitedCheck(stackVisited, nextBawahKiriBaris, nextBawahKiriKolom)
     ){
       //console.log('belok kanan  bos');
       //console.log(indexYangAkanDicek);
@@ -299,7 +299,7 @@ class Boogle {
     if(!this.isNextWall(nextAtasBaris, nextAtasKolom) &&
     this.nextHurufCheckRight(kata, indexYangAkanDicek, nextAtasBaris, nextAtasKolom) &&
     !checked&&
-    !this.isVisitedCheck(stackVisited, indexBaris, indexKolom)
+    !this.isVisitedCheck(stackVisited, nextAtasBaris, nextAtasKolom)
     ){
       //console.log('belok kanan  bos');
       //console.log(indexYangAkanDicek);
@@ -318,7 +318,7 @@ class Boogle {
     if(!this.isNextWall(nextKananBaris, nextKananKolom) &&
     this.nextHurufCheckRight(kata, indexYangAkanDicek, nextKananBaris, nextKananKolom) &&
     !checked&&
-    !this.isVisitedCheck(stackVisited, indexBaris, indexKolom)
+    !this.isVisitedCheck(stackVisited, nextKananBaris, nextKananKolom)
     ){
       //console.log('belok kanan  bos');
       //console.log(indexYangAkanDicek);
@@ -337,7 +337,7 @@ class Boogle {
     if(!this.isNextWall(nextBawahBaris, nextBawahKolom) &&
     this.nextHurufCheckRight(kata, indexYangAkanDicek, nextBawahBaris, nextBawahKolom) &&
     !checked&&
-    !this.isVisitedCheck(stackVisited, indexBaris, indexKolom)
+    !this.isVisitedCheck(stackVisited, nextBawahBaris, nextBawahKolom)
     ){
       //console.log('belok kanan  bos');
       //console.log(indexYangAkanDicek);
@@ -356,7 +356,7 @@ class Boogle {
     if(!this.isNextWall(nextKiriBaris, nextKiriKolom) &&
     this.nextHurufCheckRight(kata, indexYangAkanDicek, nextKiriBaris, nextKiriKolom) &&
     !checked&&
-    !this.isVisitedCheck(stackVisited, indexBaris, indexKolom)
+    !this.isVisitedCheck(stackVisited, nextKiriBaris, nextKiriKolom)
     ){
       //console.log('belok kanan  bos');
       //console.log(indexYangAkanDicek);
