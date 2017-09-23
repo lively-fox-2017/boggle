@@ -7,7 +7,6 @@ class Boggle {
     this.visitedIndex = [];
     this.firstLetterIndex = [];
     this.currentSearch = "";
-    this.found = 0;
   }
   shake(num) {
     this.boggleBoard = [];
@@ -34,8 +33,7 @@ class Boggle {
     temp.shift();
     for (var i = 0; i < this.firstLetterIndex.length; i++) {
       this.visitedIndex = [];
-      this.findNextLetter(this.firstLetterIndex[i], temp.join(''));
-      if (this.found > 0) {
+      if(this.findNextLetter(this.firstLetterIndex[i], temp.join(''))){
         return this.currentSearch + " is found";
       }
     }
@@ -53,8 +51,8 @@ class Boggle {
     this.boggleBoard = [
       ['D', 'G', 'H', 'I'],
       ['K', 'L', 'P', 'S'],
-      ['E', 'R', 'U', 'T'],
-      ['E', 'A', 'R', 'N']
+      ['Y', 'E', 'U', 'T'],
+      ['E', 'A', 'P', 'N']
     ];
   }
   findFirstLetter(str) {
@@ -70,101 +68,94 @@ class Boggle {
     this.firstLetterIndex = result;
   }
   findNextLetter(index, search) {
-    var tes = [index[0], index[1]];
-    this.visitedIndex.unshift(tes);
-    console.log(this.visitedIndex);
+    this.visitedIndex.unshift(index);
     if (this.visitedIndex.length === this.currentSearch.length) {
-      this.found++;
       return true;
     }
-    console.log(search[0],'right');
     if (this.horizontalRight(index, search[0])) {
-      console.log('y');
-      var tes2 = [index[0], index[1]]
-      tes2[1] += 1
+      var newIndex = [index[0], index[1]]
+      newIndex[1] += 1
       var temp = search.split('');
       temp.shift();
       var searchMore = temp.join('');
-      if(this.findNextLetter(tes2, searchMore)){
-        console.log('a');
+      if(this.findNextLetter(newIndex, searchMore)){
         return true;
       }
-      console.log('b');
     }
-    console.log(search[0],'left');
     if (this.horizontalLeft(index, search[0])) {
-      console.log('y');
-      var tes2 = [index[0],index[1]];
-      tes2[1] -= 1;
+      var newIndex = [index[0],index[1]];
+      newIndex[1] -= 1;
       var temp = search.split('');
       temp.shift();
       var searchMore = temp.join('');
-      if(this.findNextLetter(tes2, searchMore)){
-        console.log('a');
+      if(this.findNextLetter(newIndex, searchMore)){
         return true;
       }
-      console.log('b');
     }
-    console.log(search[0],'up');
     if (this.verticalUp(index, search[0])) {
-      console.log('y');
-      var tes2 = [index[0],index[1]];
+      var newIndex = [index[0],index[1]];
+      newIndex[0] -= 1;
+      var temp = search.split('');
+      temp.shift();
+      var searchMore = temp.join('');
+      if(this.findNextLetter(newIndex, searchMore)){
+        return true;
+      }
+    }
+    if (this.verticalDown(index, search[0])) {
+      var newIndex = [index[0],index[1]]
+      newIndex[0] += 1;
+      var temp = search.split('');
+      temp.shift();
+      var searchMore = temp.join('');
+      if(this.findNextLetter(newIndex, searchMore)){
+        return true;
+      }
+    }
+    if (this.diagonalDownLeft(index, search[0])) {
+      var newIndex = [index[0],index[1]]
+      newIndex[0] += 1;
+      newIndex[1] -= 1;
+      var temp = search.split('');
+      temp.shift();
+      var searchMore = temp.join('');
+      if(this.findNextLetter(newIndex, searchMore)){
+        return true;
+      }
+    }
+    if (this.diagonalDownRight(index, search[0])) {
+      var newIndex = [index[0],index[1]]
+      newIndex[0] += 1;
+      newIndex[1] += 1;
+      var temp = search.split('');
+      temp.shift();
+      var searchMore = temp.join('');
+      if(this.findNextLetter(newIndex, searchMore)){
+        return true;
+      }
+    }
+    if (this.diagonalUpLeft(index, search[0])) {
+      var tes2 = [index[0],index[1]]
+      tes2[0] -= 1;
       tes2[0] -= 1;
       var temp = search.split('');
       temp.shift();
       var searchMore = temp.join('');
       if(this.findNextLetter(tes2, searchMore)){
-        console.log('a');
         return true;
       }
-      console.log('b');
     }
-    console.log(search[0],'down');
-    if (this.verticalDown(index, search[0])) {
-      console.log('y');
+    if (this.diagonalUpRight(index, search[0])) {
       var tes2 = [index[0],index[1]]
-      tes2[0] += 1;
+      tes2[0] -= 1;
+      tes2[1] += 1;
       var temp = search.split('');
       temp.shift();
       var searchMore = temp.join('');
       if(this.findNextLetter(tes2, searchMore)){
-        console.log('a');
         return true;
       }
-      console.log('b');
     }
-    // if (this.diagonalDownLeft(index, search[0])) {
-    //   index[0] += 1;
-    //   index[1] -= 1;
-    //   var temp = search.split('');
-    //   temp.shift();
-    //   search = temp.join('');
-    //   this.findNextLetter(index, search);
-    // }
-    // if (this.diagonalDownRight(index, search[0])) {
-    //   index[0] += 1;
-    //   index[0] += 1;
-    //   var temp = search.split('');
-    //   temp.shift();
-    //   search = temp.join('');
-    //   this.findNextLetter(index, search);
-    // }
-    // if (this.diagonalUpLeft(index, search[0])) {
-    //   index[0] -= 1;
-    //   index[0] -= 1;
-    //   var temp = search.split('');
-    //   temp.shift();
-    //   search = temp.join('');
-    //   this.findNextLetter(index, search);
-    // }
-    // if (this.diagonalUpRight(index, search[0])) {
-    //   index[0] -= 1;
-    //   index[0] += 1;
-    //   var temp = search.split('');
-    //   temp.shift();
-    //   search = temp.join('');
-    //   this.findNextLetter(index, search);
-    // }
     this.visitedIndex.shift();
     return false;
   }
