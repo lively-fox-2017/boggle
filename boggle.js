@@ -226,7 +226,7 @@ class Boogle {
     ){
       //console.log('belok kanan  bos');
       //console.log(indexYangAkanDicek);
-      if(indexYangAkanDicek==kata.length-1){
+      if(indexYangAkanDicek==kata.length){
         //console.log('we did it we did it hooray olisimos ',kata);
         return `dapet ${kata}`;
       }else{
@@ -245,7 +245,7 @@ class Boogle {
     ){
       //console.log('belok kanan  bos');
       //console.log(indexYangAkanDicek);
-      if(indexYangAkanDicek==kata.length-1){
+      if(indexYangAkanDicek==kata.length){
         //console.log('we did it we did it hooray olisimos ',kata);
         return `dapet ${kata}`;
       }else{
@@ -264,7 +264,7 @@ class Boogle {
     ){
       //console.log('belok kanan  bos');
       //console.log(indexYangAkanDicek);
-      if(indexYangAkanDicek==kata.length-1){
+      if(indexYangAkanDicek==kata.length){
         //console.log('we did it we did it hooray olisimos ',kata);
         return `dapet ${kata}`;
       }else{
@@ -283,7 +283,7 @@ class Boogle {
     ){
       //console.log('belok kanan  bos');
       //console.log(indexYangAkanDicek);
-      if(indexYangAkanDicek==kata.length-1){
+      if(indexYangAkanDicek==kata.length){
         //console.log('we did it we did it hooray olisimos ',kata);
         return `dapet ${kata}`;
       }else{
@@ -303,7 +303,7 @@ class Boogle {
     ){
       //console.log('belok kanan  bos');
       //console.log(indexYangAkanDicek);
-      if(indexYangAkanDicek==kata.length-1){
+      if(indexYangAkanDicek==kata.length){
         //console.log('we did it we did it hooray olisimos ',kata);
         return `dapet ${kata}`;
       }else{
@@ -322,7 +322,7 @@ class Boogle {
     ){
       //console.log('belok kanan  bos');
       //console.log(indexYangAkanDicek);
-      if(indexYangAkanDicek==kata.length-1){
+      if(indexYangAkanDicek==kata.length){
         //console.log('we did it we did it hooray olisimos ',kata);
         return `dapet ${kata}`;
       }else{
@@ -341,7 +341,7 @@ class Boogle {
     ){
       //console.log('belok kanan  bos');
       //console.log(indexYangAkanDicek);
-      if(indexYangAkanDicek==kata.length-1){
+      if(indexYangAkanDicek==kata.length){
         //console.log('we did it we did it hooray olisimos ',kata);
         return `dapet ${kata}`;
       }else{
@@ -360,7 +360,7 @@ class Boogle {
     ){
       //console.log('belok kanan  bos');
       //console.log(indexYangAkanDicek);
-      if(indexYangAkanDicek==kata.length-1){
+      if(indexYangAkanDicek==kata.length){
         //console.log('we did it we did it hooray olisimos ',kata);
         return `dapet ${kata}`;
       }else{
