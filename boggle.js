@@ -1,3 +1,6 @@
+
+const Dict = require('./data');
+
 class Boggle {
   constructor() {
     this.arr = [];
@@ -14,9 +17,12 @@ class Boggle {
 
     return this.arr;
   }
+
 }
 
 let boggleGame = new Boggle();
+let dict = new Dict();
 
 // boggleGame.shake(4);
 console.log(boggleGame.shake(4));
+// console.log(dict.dictionary());
