@@ -3,11 +3,11 @@
 const data = require('./data.js');
 class Boogle {
   constructor(n) {
-    //this.board = this.shake(n);
-    this.board = [['D', 'G', 'H', 'I'],
-                  ['K', 'L', 'P', 'S'],
-                  ['Y', 'E', 'U', 'T'],
-                  ['E', 'O', 'R', 'N']];
+    this.board = this.shake(n);
+    // this.board = [['D', 'G', 'H', 'I'],
+    //               ['K', 'L', 'P', 'S'],
+    //               ['Y', 'E', 'U', 'T'],
+    //               ['E', 'O', 'R', 'N']];
     //this.words = ['APPLE', 'SIT', 'TRIP', 'TURN', 'SUPER', 'NUN', 'EROR']
     this.words = data;
     this.result = [];
@@ -36,7 +36,7 @@ class Boogle {
 
   alphabetRandomizer(){// get random alphabet
     let rng = Math.round(Math.random()*(122-97))+97;
-    let result = String.fromCharCode(rng);
+    let result = String.fromCharCode(rng).toUpperCase();
     return result
   }
 
@@ -392,15 +392,21 @@ class Boogle {
     //untuk setiap kata lakukan backtrack;
     //
     //this.trackKata('sit',0, 0,0,[]);
+    let found = false;
     for(let kata of this.words){
       for(let baris=0; baris<this.board.length; baris++){
         for (let kolom = 0; kolom<this.board.length; kolom++){
           if (this.board[baris][kolom]==kata[0]){
             if(this.trackKata(kata, 0,baris-1,kolom-1,[])){
               this.result.push(kata);
+              found = true;
               break;
             }
           }
+        }
+        if (found == true){
+          found = false;
+          break;
         }
       }
       //this.trackKata(kata, 0,0,0,[]);
