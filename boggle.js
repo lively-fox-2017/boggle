@@ -1,15 +1,18 @@
 const words = require('./data.js');
 class Boggle {
-  constructor(num) {
-    this.boardSize = num;
+  constructor(data) {
+    this.boardSize = 0;
     this.boggleBoard = [];
     this.abjad = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
     this.visitedIndex = [];
     this.firstLetterIndex = [];
     this.currentSearch = "";
+    this.found = [];
+    this.foundAt = [];
+    this.data = data;
   }
   shake(num) {
-    num = this.boardSize;
+    this.boardSize = num;
     this.boggleBoard = [];
     for (var i = 0; i < num; i++) {
       var temp = [];
@@ -22,12 +25,11 @@ class Boggle {
   }
   solve() {
     var result = [];
-    for (var i = 0; i < words.length; i++) {
-      this.found = 0;
-      this.findFirstLetter(words[i]);
+    for (var i = 0; i < this.data.length; i++) {
+      this.findFirstLetter(this.data[i]);
       result.push(this.find());
     }
-    return result;
+    return this.found;
   }
   find() {
     var temp = this.currentSearch.split('');
@@ -35,11 +37,10 @@ class Boggle {
     for (var i = 0; i < this.firstLetterIndex.length; i++) {
       this.visitedIndex = [];
       if(this.findNextLetter(this.firstLetterIndex[i], temp.join(''))){
-        console.log(this.visitedIndex);
-        return this.currentSearch + " is found";
+        this.found.push(this.currentSearch);
+        this.foundAt.push(this.visitedIndex);
       }
     }
-    return this.currentSearch + " is not found";
   }
   isVisited(index) {
     for (var i = 0; i < this.visitedIndex.length; i++) {
@@ -253,8 +254,14 @@ class Boggle {
   }
 }
 
-var game = new Boggle(12);
+var game = new Boggle(words);
 
 game.shake(12);
 console.log(game.boggleBoard);
-console.log(game.solve());
+var solved = game.solve();
+var foundAt = game.foundAt.map( arr => arr.reverse());
+console.log('\n ' + solved.length + ' words found in board');
+for(var i =0;i<solved.length;i++){
+  console.log(solved[i] + ' is found at position');
+  console.log(foundAt[i]);
+}
