@@ -14,7 +14,7 @@ class Boggle {
     for (var i = 0; i < num; i++) {
       var temp = [];
       for (var j = 0; j < num; j++) {
-        var random = Math.floor((Math.random() * (0 - 25) + 25));
+        var random = Math.floor((Math.random() * (26 - 0)));
         temp.push(this.abjad[random]);
       }
       this.boggleBoard.push(temp);
