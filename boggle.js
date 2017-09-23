@@ -1,4 +1,4 @@
-const words = require('./dummy.js');
+const words = require('./data.js');
 class Boggle {
   constructor(num) {
     this.boardSize = num;
@@ -9,6 +9,7 @@ class Boggle {
     this.currentSearch = "";
   }
   shake(num) {
+    num = this.boardSize;
     this.boggleBoard = [];
     for (var i = 0; i < num; i++) {
       var temp = [];
@@ -34,6 +35,7 @@ class Boggle {
     for (var i = 0; i < this.firstLetterIndex.length; i++) {
       this.visitedIndex = [];
       if(this.findNextLetter(this.firstLetterIndex[i], temp.join(''))){
+        console.log(this.visitedIndex);
         return this.currentSearch + " is found";
       }
     }
@@ -135,24 +137,24 @@ class Boggle {
       }
     }
     if (this.diagonalUpLeft(index, search[0])) {
-      var tes2 = [index[0],index[1]]
-      tes2[0] -= 1;
-      tes2[0] -= 1;
+      var newIndex = [index[0],index[1]]
+      newIndex[0] -= 1;
+      newIndex[1] -= 1;
       var temp = search.split('');
       temp.shift();
       var searchMore = temp.join('');
-      if(this.findNextLetter(tes2, searchMore)){
+      if(this.findNextLetter(newIndex, searchMore)){
         return true;
       }
     }
     if (this.diagonalUpRight(index, search[0])) {
-      var tes2 = [index[0],index[1]]
-      tes2[0] -= 1;
-      tes2[1] += 1;
+      var newIndex = [index[0],index[1]]
+      newIndex[0] -= 1;
+      newIndex[1] += 1;
       var temp = search.split('');
       temp.shift();
       var searchMore = temp.join('');
-      if(this.findNextLetter(tes2, searchMore)){
+      if(this.findNextLetter(newIndex, searchMore)){
         return true;
       }
     }
@@ -181,8 +183,8 @@ class Boggle {
     if (this.isVisited([index[0] - 1, [index[1]]])) {
       return false;
     }
-    if (index[0] + 1 > 3 || index[0] - 1 < 0) {
-      return false;
+    if (index[0] - 1 < 0) {
+      return false
     }
     if (this.boggleBoard[index[0] - 1][index[1]] === letter) {
       return true;
@@ -193,7 +195,7 @@ class Boggle {
     if (this.isVisited([index[0] + 1, index[1]])) {
       return false;
     }
-    if (index[0] + 1 > 3 || index[0] - 1 < 0) {
+    if (index[0] + 1 > this.boardSize - 1) {
       return false;
     }
     if (this.boggleBoard[index[0] + 1][index[1]] === letter) {
@@ -205,7 +207,7 @@ class Boggle {
     if (this.isVisited([index[0] - 1, index[1] - 1])) {
       return false;
     }
-    if (index[0] + 1 > 3 || index[0] - 1 < 0) {
+    if (index[0] - 1 < 0) {
       return false;
     }
     if (this.boggleBoard[index[0] - 1][index[1] - 1] === letter) {
@@ -217,7 +219,7 @@ class Boggle {
     if (this.isVisited([index[0] - 1, index[1] + 1])) {
       return false;
     }
-    if (index[0] + 1 > 3 || index[0] - 1 < 0) {
+    if (index[0] - 1 < 0) {
       return false;
     }
     if (this.boggleBoard[index[0] - 1][index[1] + 1] === letter) {
@@ -229,7 +231,7 @@ class Boggle {
     if (this.isVisited([index[0] + 1, index[1] - 1])) {
       return false;
     }
-    if (index[0] + 1 > 3 || index[0] - 1 < 0) {
+    if (index[0] + 1 > this.boardSize - 1) {
       return false;
     }
     if (this.boggleBoard[index[0] + 1][index[1] - 1] === letter) {
@@ -241,7 +243,7 @@ class Boggle {
     if (this.isVisited([index[0] + 1, index[1] + 1])) {
       return false;
     }
-    if (index[0] + 1 > 3 || index[0] - 1 < 0) {
+    if (index[0] + 1 > this.boardSize - 1) {
       return false;
     }
     if (this.boggleBoard[index[0] + 1][index[1] + 1] === letter) {
@@ -251,8 +253,8 @@ class Boggle {
   }
 }
 
-var game = new Boggle(4);
+var game = new Boggle(12);
 
-game.testing()
+game.shake(12);
 console.log(game.boggleBoard);
 console.log(game.solve());
