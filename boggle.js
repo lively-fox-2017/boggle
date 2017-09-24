@@ -29,9 +29,8 @@ class Boggle {
 
   solve() {
     let word = this.word;
-    let board = this.boardTes();
+    let board = this.boardSave;
     let temp = []
-    console.log(board);
     debugger
     for (let i = 0; i < word.length; i++) {
       for (let j = 0; j < board.length; j++) {
@@ -48,10 +47,12 @@ class Boggle {
 
 let testCase = require("./data.js");
 
-let wordTes = ['GET', 'JOB', 'ZEBRA'];
+let wordTes = ['GET', 'JOB', 'ZEBRA']; // word buat tes
 
 let game = new Boggle(wordTes);
-// let game = new Boggle(testCase.word);
+// let game = new Boggle(testCase.word); // word dari file
 
-game.shake();
+console.log('Board Boggle');
+console.log(game.shake());
+console.log('\nWord');
 console.log(game.solve());
