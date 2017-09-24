@@ -1,9 +1,12 @@
 const data = require('./data');
 
 class Boggle {
-  constructor(size) {
+  constructor() {
     this.boardElement = [];
     this.solutionMark = [];
+  }
+
+  shake(size) {
     for (let i = 0; i < size; i++) {
       let row = [];
       let rowSolution = [];
@@ -113,6 +116,7 @@ class Boggle {
   }
 }
 
-let game = new Boggle(5);
+let game = new Boggle();
+game.shake(10);
 console.log(game.printBoard());
 console.log(game.solve(data));
