@@ -1,8 +1,15 @@
+'use strict'
+
 class Boggle{
 	constructor(words){
 		this.arrBoard = [];
-		// this.arrBoard = [['A','K','Z','T'], ['A','R','S','S'], ['S','S','S','A'], ['A','A','S','S']];
-		this.alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		// this.arrBoard = [
+						// [['Q',true],['R',true],['A',true],['S',true]], 
+						// [['Z',true],['M',true],['R',true],['T',true]], 
+						// [['R',true],['A',true],['A',true],['A',true]], 
+						// [['X',true],['Q',true],['T',true],['E',true]]
+						// ];
+		this.alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ-";
 		this.words = words;
 		this.result = [];
 	}
@@ -17,7 +24,7 @@ class Boggle{
 		for (let row = 0; row < dimensi; row++) {
 			let arrTemp = [];
 			for (let col = 0; col < dimensi; col++) {
-				arrTemp.push(this.alpha[Math.floor(Math.random() * 26)]);
+				arrTemp.push([this.alpha[Math.floor(Math.random() * 27)]]);
 			}
 			
 			this.arrBoard.push(arrTemp);
@@ -26,75 +33,74 @@ class Boggle{
 		console.log(this.arrBoard);
 	}
 	
+	pushTrue(){
+		for (let j = 0; j < this.arrBoard.length; j++) {
+			for (let k = 0; k < this.arrBoard.length; k++){
+				this.arrBoard[j][k].push(true);
+			}
+		}
+	}
+	
 	solve(){
 		this.upperCase();
+		this.pushTrue();
 		// Perulangan untuk kata dalam kamus
 		for (let i = 0; i < this.words.length; i++) {
 			let num = 0; // variable untuk menampung indeks kata
 			let arrTemp = []; // variable untuk menampung backtrack / pengecekan kebelakang
 			let arrWordsTemp = []; // variable untuk menampung tiap huruf yang sama dengan huruf pada kata dalam kamus
-			let arrTampungHuruf = []; // variable untuk menampung huruf yang di ubah menjadi 0
 			let end = false; // variable untuk kondisi bila kata dalam board suda sesuai dengan kata pada kamus / membatasi biar huruf terakhir yang sama pada board tidak terinput
 			// perulangan untuk pengecekan baris board
 			for (let row = 0; row < this.arrBoard.length; row++) {
 				let col = 0;
-				let ban = "";
 				// perulangan untuk pengecekan kolom board
 				while (col < this.arrBoard.length) {
 					// kondisi untuk huruf pada board yang sama dengan huruf pada kata dalam kamus
-					if (this.arrBoard[row][col] === this.words[i][num] && end === false) {
-						arrTemp.push([row, col, num, ban]);
-						arrWordsTemp.push(this.arrBoard[row][col]);
+					if (this.arrBoard[row][col][0] === this.words[i][num] && end === false) {
+						arrTemp.push([row, col, num]);
+						arrWordsTemp.push(this.arrBoard[row][col][0]);
+						this.arrBoard[row][col][1] = false;
 						if (num < this.words[i].length - 1) {
 							num++;
 							// pengecekan huruf selanjutnya ke kanan
-							if (col !== this.arrBoard.length - 1 && this.arrBoard[row][col + 1] === this.words[i][num] && arrTemp[arrTemp.length - 1][3] !== "kanan") {
-								ban = "kiri";
+							if (col !== this.arrBoard.length - 1 && this.arrBoard[row][col + 1][0] === this.words[i][num] && this.arrBoard[row][col + 1][1]) {
 								col++;
 							} 
 							// pengecekan huruf selanjutnya ke kanan bawah
-							else if (col !== this.arrBoard.length - 1 && row !== this.arrBoard.length - 1 && this.arrBoard[row + 1][col + 1] === this.words[i][num] && arrTemp[arrTemp.length - 1][3] !== "kananbawah") {
-								ban = "kiriatas";
+							else if (col !== this.arrBoard.length - 1 && row !== this.arrBoard.length - 1 && this.arrBoard[row + 1][col + 1][0] === this.words[i][num] && this.arrBoard[row + 1][col + 1][1]) {
 								col++;
 								row++;
 							} 
 							// pengecekan huruf selanjutnya ke bawah
-							else if (row !== this.arrBoard.length - 1 && this.arrBoard[row + 1][col] === this.words[i][num] && arrTemp[arrTemp.length - 1][3] !== "bawah") {
-								ban = "atas";
+							else if (row !== this.arrBoard.length - 1 && this.arrBoard[row + 1][col][0] === this.words[i][num] && this.arrBoard[row + 1][col][1]) {
+								// ban = "atas";
 								row++;
 							} 
 							// pengecekan huruf selanjutnya ke kiri bawah
-							else if (row !== this.arrBoard.length - 1 && col !== 0 && this.arrBoard[row + 1][col - 1] === this.words[i][num] && arrTemp[arrTemp.length - 1][3] !== "kiribawah") {
-								ban = "kananatas";
+							else if (row !== this.arrBoard.length - 1 && col !== 0 && this.arrBoard[row + 1][col - 1][0] === this.words[i][num] && this.arrBoard[row + 1][col - 1][1]) {
 								col--;
 								row++;
 							} 
 							// pengecekan huruf selanjutnya ke kiri
-							else if (col !== 0 && this.arrBoard[row][col - 1] === this.words[i][num] && arrTemp[arrTemp.length - 1][3] !== "kiri") {
-								ban = "kanan";
+							else if (col !== 0 && this.arrBoard[row][col - 1][0] === this.words[i][num] && this.arrBoard[row][col - 1][1]) {
 								col--;
 							} 
 							// pengecekan huruf selanjutnya ke kiri atas
-							else if (row !== 0 && col !== 0 && this.arrBoard[row - 1][col - 1] === this.words[i][num] && arrTemp[arrTemp.length - 1][3] !== "kiriatas") {
-								ban = "kananbawah";
+							else if (row !== 0 && col !== 0 && this.arrBoard[row - 1][col - 1][0] === this.words[i][num] && this.arrBoard[row - 1][col - 1][1]) {
 								col--;
 								row--;
 							} 
 							// pengecekan huruf selanjutnya ke atas
-							else if (row !== 0 && this.arrBoard[row - 1][col] === this.words[i][num] && arrTemp[arrTemp.length - 1][3] !== "atas") {
-								ban = "bawah";
+							else if (row !== 0 && this.arrBoard[row - 1][col][0] === this.words[i][num] && this.arrBoard[row - 1][col][1]) {
 								row--;
 							} 
 							// pengecekan huruf selanjutnya ke kanan atas
-							else if (row !==0 && col !== this.arrBoard.length - 1 && this.arrBoard[row - 1][col + 1] === this.words[i][num] && arrTemp[arrTemp.length - 1][3] !== "kananatas") {
-								ban = "kiribawah";
+							else if (row !==0 && col !== this.arrBoard.length - 1 && this.arrBoard[row - 1][col + 1][0] === this.words[i][num] && this.arrBoard[row - 1][col + 1][1]) {
 								col++;
 								row--;
 							} 
 							// jika tidak ada huruf berikutnya di semua arah
 							else {
-								arrTampungHuruf.push([arrTemp[arrTemp.length - 1][0], arrTemp[arrTemp.length - 1][1], this.arrBoard[arrTemp[arrTemp.length - 1][0]][arrTemp[arrTemp.length - 1][1]]]);
-								this.arrBoard[arrTemp[arrTemp.length - 1][0]][arrTemp[arrTemp.length - 1][1]] = "0";
 								arrTemp.pop();
 								arrWordsTemp.pop();
 								// kondisi jika variable penampung pengecekan kebelakang tidak kosong
@@ -102,11 +108,18 @@ class Boggle{
 									row = arrTemp[arrTemp.length - 1][0];
 									col = arrTemp[arrTemp.length - 1][1];
 									num = arrTemp[arrTemp.length - 1][2];
-									ban = arrTemp[arrTemp.length - 1][3];
 									arrTemp.pop();
 									arrWordsTemp.pop();
 								} else {
 									num = 0;
+									col++;
+									for (let j = 0; j < this.arrBoard.length; j++) {
+										for (let k = 0; k < this.arrBoard.length; k++){
+											if (!this.arrBoard[j][k][1]) {
+												this.arrBoard[j][k][1] = true;
+											}
+										}
+									}
 								}
 							}
 						} else {
@@ -123,16 +136,18 @@ class Boggle{
 				arrWordsTemp = arrWordsTemp.join("");
 				this.result.push(arrWordsTemp);
 			}
-			
-			if (arrTampungHuruf.length !== 0) {
-				for (let t = 0; t < arrTampungHuruf.length; t++) {
-					this.arrBoard[arrTampungHuruf[t][0]][arrTampungHuruf[t][1]] = arrTampungHuruf[t][2];
+			// Untuk mereset semua menjadi true jika kata sudah / tidak di temukan
+			for (let j = 0; j < this.arrBoard.length; j++) {
+				for (let k = 0; k < this.arrBoard.length; k++){
+					if (!this.arrBoard[j][k][1]) {	
+						this.arrBoard[j][k][1] = true;
+					}
 				}
 			}
 		}
 		
 		if (this.result.length < 1) {
-			console.log("No Word Found");
+			console.log("\nNo Word Found");
 		} else if (this.result.length > 1) {
 			console.log("\n"+this.result.length +" Words Found : \n");
 			console.log(this.result.join("\n"));
@@ -143,10 +158,9 @@ class Boggle{
 	}
 }
 
-// var words = require('./data');
-let words = ["ABA","ABADI","ABAH","AKA","JOB","GET","BOBO","ZEBRA"];
+let words = require('./data');
   
 let game = new Boggle(words);
 
-game.shake(6);
+game.shake(5);
 game.solve();
