@@ -32,7 +32,7 @@ class Boggle{
 		
 		console.log(this.arrBoard);
 	}
-	
+	// Method untuk memasukan nilai boolean true kedalam array board
 	pushTrue(){
 		for (let j = 0; j < this.arrBoard.length; j++) {
 			for (let k = 0; k < this.arrBoard.length; k++){
